@@ -1,0 +1,2 @@
+citation_id,aliases,title,doi,year,first_author,journal,pdf_path,zotero_key,zotero_item_id,zotero_collection,source_metadata_file,notes
+EXAMPLE001,,"Example article title",,2024,Example,"Example Journal",C:\path\to\article.pdf,,,collection_name,metadata_source.csv,"template only; replace every example value and verify DOI, Zotero key and item ID"

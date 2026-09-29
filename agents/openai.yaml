@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zotero Word AutoCite"
+  short_description: "在 Word 中插入、调整并检查可刷新的 Zotero 引用"
+  default_prompt: "使用 $zotero-word-autocite，按本对话和项目文件完成 Word 中的 Zotero 引用任务。"

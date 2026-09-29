@@ -1,0 +1,2 @@
+insert_as_group,group_order,claim_id,target_location_description,anchor_text,anchor_occurrence,anchor_selection_reason,position,citation_id,citation_order,status,default_insert,action,notes
+GROUP001,1,CLAIM001,"end of the target sentence","exact text from the target document.",unique,,after,EXAMPLE001,1,main,yes,add,"template only; verify anchor and citation identity"

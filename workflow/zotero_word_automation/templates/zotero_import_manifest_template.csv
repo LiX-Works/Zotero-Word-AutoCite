@@ -1,0 +1,2 @@
+citation_id,title,doi,year,authors,journal,volume,issue,pages,url,pdf_path,collection,status,notes
+EXAMPLE001,"Example article title",,2024,"Example, A.","Example Journal",,,,,C:\path\to\article.pdf,project_collection,pending,"template only; fill and verify metadata before import"

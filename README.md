@@ -1,41 +1,95 @@
 # Zotero Word AutoCite
 
-做论文时，文献可能散在 PDF 文件夹、Zotero 和几份表格里，引用位置又分布在 Word 的不同段落。这个 Codex Skill 会按你已经确定的引用方案，把文献和位置逐一对好，插入真正的 Zotero 引用字段，然后刷新并检查参考文献表。以后仍可以在 Word 里用 Zotero 继续编辑这些引用。
+**English** | [简体中文](README.zh-CN.md)
 
-它可以接手几类工作：从零给文档插引用；调整已有引用；只刷新并检查一份文档；或者先把格式不统一的文献表和引用计划整理好。遇到论文身份、引用位置等关键问题无法确定时，它会停下来问你。
+A Codex Skill for applying your citation plan in Microsoft Word with refreshable Zotero fields.
 
-## 需要准备什么
+During manuscript preparation, references may be spread across PDF folders, Zotero collections, and tables, while citation locations are scattered through Word. This workflow brings those inputs together, matches the references you have selected to the intended locations, inserts or adjusts Zotero citation fields, then refreshes and checks the bibliography.
 
-- Windows、Microsoft Word 桌面版、Zotero 和 Zotero 的 Word 加载项。
-- Python 3、PowerShell。
-- 目标 Word，以及你希望哪些位置引用哪些文献的方案。文献可以在 Zotero 中，也可以先放在 PDF 文件夹并附有元数据；方案可以是表格、Markdown、批注或文字说明。
+The result remains editable through Zotero's Word add-in. These are live citation fields, rather than manually typed reference numbers.
 
-新文档还需要确定引用样式；已有文档如果只是刷新，可以沿用当前样式。
+The homepage is bilingual. The Skill and detailed workflow documents are currently written in Chinese.
 
-## 安装与使用
+## Choose the task you need
 
-在 PowerShell 中把仓库克隆到 Codex 的个人 Skill 目录：
+The workflow has several entry points. You do not need to run every stage for every request.
+
+| Task | What you provide | Expected result |
+|---|---|---|
+| Read-only check | A question or files to examine | Findings or an explanation |
+| Prepare citation inputs | Your decisions, notes, tables, or Word comments | A citation task table, reference mapping, and handoff notes |
+| Prepare Zotero | Verified reference records, PDFs, or an existing collection | An import plan or prepared items and checked mappings, as authorized |
+| Insert citations into a new document | Word file, citation plan, sources, and citation style | A working copy with Zotero fields, a bibliography if requested, and verification notes |
+| Adjust existing citations | A Word file with Zotero fields and specified changes | Targeted changes, with unaffected citations preserved |
+| Refresh and verify | A Word file with existing Zotero fields | A refreshed working copy and checks, using the existing style |
+
+Citation plans can come from Markdown, CSV, JSON, Excel, Word comments, or ordinary written instructions. Sources can be existing Zotero items or PDFs with metadata. Codex checks what is already available before asking you to standardize it.
+
+You decide which papers support which statements, their order, and where they belong. If that information is missing, the workflow can organize the inputs and identify the gaps; it does not choose the final citations on your behalf.
+
+## What to prepare
+
+- Windows, desktop Microsoft Word, Zotero, and the Zotero Word add-in.
+- Python 3 and PowerShell.
+- The target Word document, reference sources, and the citation plan or changes you want.
+- A citation style for a new document. A refresh-only task can keep the document's existing style.
+
+Before field operations, the workflow checks the actual local environment, including Zotero's local API and the official Word integration DLL. The Skill does not install or configure these applications for you.
+
+## Installation and first use
+
+The repository root is the Skill folder: `SKILL.md` sits beside `workflow/`. Keep the entire structure together.
+
+You can clone it into the personal Codex Skill directory from PowerShell:
 
 ```powershell
 git clone https://github.com/LiX-Works/zotero-word-autocite.git (Join-Path $env:USERPROFILE '.codex\skills\zotero-word-autocite')
 ```
 
-在 Codex 中可以这样开始：
+Alternatively, download the repository and place the complete folder there. If the destination already exists, compare your customizations before replacing it. If Codex does not show the new Skill, reopen the task and check again.
 
-> 使用 `$zotero-word-autocite`。项目在 `C:\path\to\project`，目标是 `manuscript.docx`。请根据项目里的引用方案和文献文件夹插入 Zotero 引用，完成后刷新并检查参考文献表。引用样式为我指定的样式。
+For a new document, start with a request such as:
 
-已有文件和对话里能找到的信息，Codex 会先自行核对；只有关键内容缺失或互相冲突时才会集中询问。
+```text
+Use $zotero-word-autocite. The project is at C:\path\to\project,
+and the target file is manuscript.docx.
 
-## 工作流与脚本
+Use the project's citation plan and reference sources to insert Zotero
+citation fields at the specified locations. Use the citation style I have
+selected, then refresh and check the bibliography.
+```
 
-[Skill 入口](SKILL.md)会按任务指向[输入整理说明](workflow/PREPARE_CITATION_INPUTS.md)和[Word–Zotero 工作流](workflow/ZOTERO_WORD_AUTOMATION_WORKFLOW.md)。脚本、模板和离线测试在 `workflow/zotero_word_automation/`。
+For an existing document, describe the affected passage and the exact reference changes. For example, identify one citation group using its surrounding sentence and the papers in your approved reference table, and ask to keep the rest of the document unchanged. A refresh-only request does not need a new citation plan or complete mapping tables.
 
-批量插入脚本负责新增引用。调整已有引用时，Codex 按工作流定位并修改对应的 Zotero 字段，再统一刷新和核验。PDF 清单和 Zotero 导入计划也有脚本辅助；实际导入会根据当前文献库处理。
+## How changes and results are handled
 
-离线测试可在仓库根目录运行：
+For editing tasks, the workflow normally preserves the source document and works on a copy in your project. A clearly designated editable copy can be reused, with a backup before further changes. Inputs and reference identities are checked before writing.
+
+When you have requested complete execution and the checks pass, Codex continues through the relevant stages under the existing authorization. It pauses the affected operation if a reference identity or location cannot be determined, information seriously conflicts, the document is damaged, or the save state is uncertain. Read-only or planning requests stop at their requested deliverable.
+
+The batch scripts `build_payload.py` and `insert_zotero_fields.ps1` handle **new citations**. Replacing or deleting existing groups follows the workflow's targeted field-editing steps; those actions are not handled by simply appending new fields. Other citation groups are preserved.
+
+PDF inventory and import-plan scripts prepare files and mappings. They do not perform the actual Zotero import themselves. Importing or changing Zotero records follows the task authorization and includes a database backup; the workflow does not default to deleting library items, PDFs, or all Word citations.
+
+Completion means checking the actual fields, cited items, bibliography, and saved document. A successful script exit or a wait ending does not by itself prove that Zotero refresh completed. The handoff includes the working copy and a short account of what was verified or remains unfinished.
+
+## Documentation and offline tests
+
+| File or folder | Purpose |
+|---|---|
+| [SKILL.md](SKILL.md) | Task instructions and entry point |
+| [Workflow overview](workflow/README_FIRST.md) | Choose between checking, preparation, insertion, adjustment, and refresh |
+| [Input preparation](workflow/PREPARE_CITATION_INPUTS.md) | Interpret existing materials and prepare citation tasks and mappings |
+| [Word–Zotero workflow](workflow/ZOTERO_WORD_AUTOMATION_WORKFLOW.md) | Field operations, refresh, troubleshooting, and verification |
+| [Scripts](workflow/zotero_word_automation/scripts/) and [templates](workflow/zotero_word_automation/templates/) | Supporting operations and example input formats |
+| [Tests](workflow/zotero_word_automation/tests/) | Offline regression tests |
+
+To run the offline tests from the repository root:
 
 ```powershell
 python -m unittest discover -s workflow/zotero_word_automation/tests -v
 ```
 
-本项目采用 [MIT License](LICENSE)。
+These tests do not launch Word or Zotero and do not prove that live insertion or refresh works in a particular desktop environment.
+
+The project uses the [MIT license](LICENSE).

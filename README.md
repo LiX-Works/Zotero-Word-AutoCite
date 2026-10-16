@@ -8,7 +8,7 @@ During manuscript preparation, references may be spread across PDF folders, Zote
 
 The result remains editable through Zotero's Word add-in. These are live citation fields, rather than manually typed reference numbers.
 
-The homepage is bilingual. The Skill and detailed workflow documents are currently written in Chinese.
+The homepage is bilingual. The Skill and detailed workflow documents are written in English.
 
 ## Choose the task you need
 

@@ -2,53 +2,34 @@
 
 [English](README.md) | **简体中文**
 
-一份按你的引用方案，在 Microsoft Word 中写入可刷新 Zotero 字段的 Codex Skill。
+一个 Codex Skill：按引用方案在 Microsoft Word 中写入 Zotero 字段。它将选定文献对应到指定位置，通过 Zotero 的 Word 集成插入或修改字段，并刷新、核验参考文献表。写入的引用仍可在 Zotero Word 加载项中编辑和刷新。
 
-写论文时，文献可能散在 PDF 文件夹、Zotero 文献库和几份表格里，引用位置又分布在 Word 的不同段落。这个工作流把已有材料对齐，将你选定的文献对应到指定位置，插入或调整 Zotero 引用字段，再刷新并检查参考文献表。
+<img src="assets/overview.png" alt="引用方案、文献（Zotero 条目或 PDF）和 Word 稿件交给 AI Agent，依次完成文献匹配、插入 Zotero 字段、在 Word 中刷新、核验参考文献表；结果是带可刷新 Zotero 引用字段和参考文献表的 Word 文档，已有引用可以继续调整并再次刷新。" width="1600">
 
-交付的引用仍可通过 Zotero 的 Word 加载项继续编辑；写入的是可刷新的字段，而非手工输入的数字编号。
+引用方案可以是笔记、表格（Markdown、CSV、JSON、Excel）或 Word 批注；文献可以是 Zotero 条目，也可以是附元数据的 PDF。哪些文献支撑哪些论述、顺序如何，由作者决定；方案不完整时，工作流报告缺口而不代为补全。文献检索与下载见 [ScholarFetch](https://github.com/LiX-Works/ScholarFetch)。
 
-首页提供中英双语；Skill 与详细工作流文档使用英文。
+## 任务
 
-## 选择你需要的任务
-
-工作流有多个入口，不必每次都跑完整流程。
-
-| 任务 | 需要什么 | 交付什么 |
+| 任务 | 输入 | 结果 |
 |---|---|---|
-| 只读检查 | 待检查的问题或文件 | 检查结果或解释 |
-| 整理引用输入 | 已有决定、笔记、表格或 Word 批注 | 引用任务表、文献映射和交接说明 |
-| 准备 Zotero | 已核实的文献记录、PDF 或已有分类 | 按授权形成导入计划，或准备条目并核验映射 |
-| 为新文档插入引用 | Word、引用方案、文献来源和引用样式 | 含 Zotero 字段、按方案需要生成的参考文献表和验证记录的工作副本 |
-| 调整已有引用 | 已有 Zotero 字段的 Word 与具体修改方案 | 局部变更，保留未受影响的引用 |
-| 仅刷新与验证 | 已有 Zotero 字段的 Word | 沿用现有样式刷新，并交付核验结果 |
+| 只读检查 | 问题或文件 | 检查结论 |
+| 整理引用输入 | 已有决定、笔记、表格或 Word 批注 | 引用任务表与文献映射 |
+| 准备 Zotero | 已核实的记录、PDF 或已有分类 | 按授权形成导入计划或准备条目 |
+| 插入引用 | Word、引用方案、文献来源与样式 | 含 Zotero 字段和参考文献表的工作副本 |
+| 调整引用 | 已有 Zotero 字段的 Word 与修改方案 | 定点修改，其余引用保留 |
+| 刷新与核验 | 已有 Zotero 字段的 Word | 沿用现有样式的刷新副本 |
 
-引用方案可以来自 Markdown、CSV、JSON、Excel、Word 批注或文字说明。文献可以已在 Zotero 中，也可以先放在 PDF 文件夹并附有元数据。Codex 会先核对已有信息，不要求你提前统一成模板。
+## 开始使用
 
-哪些论文支撑哪些论述、顺序和落点，由你确定。缺少这些信息时，工作流可以整理材料和指出缺口，但不会代你决定最终引用哪些文献。
+需要 Windows、Word 桌面版、Zotero 及其 Word 加载项、Python 3 和 PowerShell；新文档还需指定引用样式。写入前，工作流会检查 Zotero 本地 API 和 Word 集成 DLL，但不负责安装。
 
-## 需要准备什么
-
-- Windows、Microsoft Word 桌面版、Zotero 和 Zotero Word 加载项。
-- Python 3 与 PowerShell。
-- 目标 Word、文献来源，以及希望执行的引用方案或修改内容。
-- 新文档需要指定引用样式；仅刷新已有文档时可以沿用当前样式。
-
-实际操作字段前，工作流会核对本机环境，包括 Zotero 本地 API 和官方 Word 集成 DLL。Skill 不代替这些应用的安装与配置。
-
-## 安装与第一次使用
-
-本仓库根目录就是 Skill 目录：`SKILL.md` 与 `workflow/` 位于同一层。安装时保留完整结构。
-
-可以在 PowerShell 中克隆到 Codex 的个人 Skill 目录：
+仓库根目录即 Skill 目录。安装为 Codex 个人 Skill：
 
 ```powershell
-git clone https://github.com/LiX-Works/zotero-word-autocite.git (Join-Path $env:USERPROFILE '.codex\skills\zotero-word-autocite')
+git clone https://github.com/LiX-Works/Zotero-Word-AutoCite.git (Join-Path $env:USERPROFILE '.codex\skills\zotero-word-autocite')
 ```
 
-也可以下载仓库，把完整文件夹放到该位置。已有同名目录时，先比较个人改动；如果 Codex 没有显示新 Skill，可重新打开任务后检查。
-
-为新文档插入引用时，可以这样开始：
+请求示例：
 
 ```text
 使用 $zotero-word-autocite。项目在 C:\path\to\project，
@@ -58,21 +39,13 @@ git clone https://github.com/LiX-Works/zotero-word-autocite.git (Join-Path $env:
 使用我已选定的引用样式，完成后刷新并检查参考文献表。
 ```
 
-调整已有文档时，说明受影响的段落和准确的文献变更。例如，用周围原句定位某一引用组，按已确认的文献表指定新成员，并要求保留文档其余引用。仅刷新时，无须重新建立完整引用方案或映射表。
+修改已有文档时，说明涉及的段落和文献变更；仅刷新不需要引用方案。Skill 与工作流文档为英文。
 
-## 修改与结果如何处理
+## 安全机制
 
-编辑任务默认保留源文档，在项目内的工作副本上操作。明确指定的可修改副本可以复用，再次修改前先备份。写入前核对输入和文献身份。
+修改在工作副本上进行，源文档保留。写入前核对文献身份；文献身份或位置不明确、输入冲突或保存状态不确定时，相应操作停止。批量脚本（`build_payload.py`、`insert_zotero_fields.ps1`）用于新增引用；替换或删除已有引用组采用定点字段修改。Zotero 导入需经授权并先备份数据库，默认不删除条目、PDF 或已有引用。只有在保存后的文档中核对字段、引用条目和参考文献表之后，任务才算完成。
 
-你已经要求完整执行且检查通过时，Codex 会在已有授权内继续相关阶段；文献身份或落点无法确定、信息严重冲突、文档损坏或保存状态不明时，暂停受影响的操作并询问。只读检查或方案任务到相应交付为止。
-
-批量脚本 `build_payload.py` 和 `insert_zotero_fields.ps1` 负责**新增引用**。替换或删除已有引用组，按工作流定位并修改相应字段，不用再次追加来代替替换；其他引用组保留。
-
-PDF 清单和导入计划脚本负责准备文件与映射，本身不执行 Zotero 导入。实际导入或条目修改按任务授权进行，并备份文献库数据库；不默认删除条目、PDF 或清空全部 Word 引用。
-
-完成时检查实际字段、引用成员、参考文献表和保存后的文档。脚本成功退出或等待结束，不能单独证明 Zotero 刷新完成。交付包括工作副本，以及已验证内容和未完成事项的简短说明。
-
-## 详细文档与离线测试
+## 文档与测试
 
 | 文件或目录 | 用途 |
 |---|---|
@@ -83,12 +56,10 @@ PDF 清单和导入计划脚本负责准备文件与映射，本身不执行 Zot
 | [脚本](workflow/zotero_word_automation/scripts/)与[模板](workflow/zotero_word_automation/templates/) | 辅助操作与输入格式示例 |
 | [测试](workflow/zotero_word_automation/tests/) | 离线回归测试 |
 
-在仓库根目录运行：
-
 ```powershell
 python -m unittest discover -s workflow/zotero_word_automation/tests -v
 ```
 
-这些测试不会启动 Word 或 Zotero，也不能证明某台电脑上的真实插入和刷新已经通过。
+离线测试不启动 Word 或 Zotero，不能证明特定电脑上的实际插入和刷新可用。
 
-本项目采用 [MIT 许可证](LICENSE)。
+采用 [MIT 许可证](LICENSE)。

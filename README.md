@@ -2,7 +2,7 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-A Codex Skill that writes a citation plan into Microsoft Word as Zotero fields. It matches the references you have selected to their intended locations, inserts or edits the fields through Zotero's Word integration, and refreshes and verifies the bibliography. The citations remain live and editable in Zotero's Word add-in.
+Inserting one citation with Zotero's Word add-in is quick; placing dozens of them across a manuscript from a citation plan is not. This Codex Skill handles that step. It matches the references you have selected to their intended locations, inserts or edits Zotero fields through Zotero's Word integration, and refreshes and verifies the bibliography. The citations remain live and editable in the add-in.
 
 <img src="assets/overview.png" alt="Your citation plan, your references (Zotero items or PDFs), and your Word manuscript go to an AI agent, which matches references, inserts Zotero fields, refreshes in Word, and verifies the bibliography. The result is a Word document with live, refreshable Zotero citation fields and bibliography; existing citations can be adjusted and refreshed again." width="1600">
 
@@ -44,7 +44,11 @@ For an existing document, identify the passage and the reference changes. A refr
 
 ## Safeguards
 
-Edits go to a working copy; the source document is preserved. Reference identities are checked before any write, and an operation stops when an identity or location is ambiguous, inputs conflict, or the save state is uncertain. The batch scripts (`build_payload.py`, `insert_zotero_fields.ps1`) add citations; replacing or removing existing groups uses targeted field edits. Zotero imports require authorization and a database backup, and nothing deletes library items, PDFs, or existing citations by default. A task is complete only when the saved document's fields, cited items, and bibliography have been checked.
+- Edits go to a working copy; the source document is preserved.
+- Reference identities are checked before any write. An operation stops when an identity or location is ambiguous, inputs conflict, or the save state is uncertain.
+- The batch scripts (`build_payload.py`, `insert_zotero_fields.ps1`) add citations; replacing or removing existing groups uses targeted field edits.
+- Zotero imports require authorization and a database backup. Nothing deletes library items, PDFs, or existing citations by default.
+- A task is complete only when the saved document's fields, cited items, and bibliography have been checked.
 
 ## Documentation and tests
 

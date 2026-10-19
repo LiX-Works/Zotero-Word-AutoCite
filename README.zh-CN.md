@@ -2,7 +2,7 @@
 
 [English](README.md) | **简体中文**
 
-一个 Codex Skill：按引用方案在 Microsoft Word 中写入 Zotero 字段。它将选定文献对应到指定位置，通过 Zotero 的 Word 集成插入或修改字段，并刷新、核验参考文献表。写入的引用仍可在 Zotero Word 加载项中编辑和刷新。
+用 Zotero 的 Word 加载项插入一条引用很快；按引用方案在整篇稿件中放好几十条引用，就费时多了。这个 Codex Skill 负责这一步：将选定文献对应到指定位置，通过 Zotero 的 Word 集成插入或修改字段，并刷新、核验参考文献表。写入的引用仍可在加载项中编辑和刷新。
 
 <img src="assets/overview.png" alt="引用方案、文献（Zotero 条目或 PDF）和 Word 稿件交给 AI Agent，依次完成文献匹配、插入 Zotero 字段、在 Word 中刷新、核验参考文献表；结果是带可刷新 Zotero 引用字段和参考文献表的 Word 文档，已有引用可以继续调整并再次刷新。" width="1600">
 
@@ -43,7 +43,11 @@ git clone https://github.com/LiX-Works/Zotero-Word-AutoCite.git (Join-Path $env:
 
 ## 安全机制
 
-修改在工作副本上进行，源文档保留。写入前核对文献身份；文献身份或位置不明确、输入冲突或保存状态不确定时，相应操作停止。批量脚本（`build_payload.py`、`insert_zotero_fields.ps1`）用于新增引用；替换或删除已有引用组采用定点字段修改。Zotero 导入需经授权并先备份数据库，默认不删除条目、PDF 或已有引用。只有在保存后的文档中核对字段、引用条目和参考文献表之后，任务才算完成。
+- 修改在工作副本上进行，源文档保留。
+- 写入前核对文献身份。文献身份或位置不明确、输入冲突或保存状态不确定时，相应操作停止。
+- 批量脚本（`build_payload.py`、`insert_zotero_fields.ps1`）用于新增引用；替换或删除已有引用组采用定点字段修改。
+- Zotero 导入需经授权并先备份数据库。默认不删除条目、PDF 或已有引用。
+- 只有在保存后的文档中核对字段、引用条目和参考文献表之后，任务才算完成。
 
 ## 文档与测试
 

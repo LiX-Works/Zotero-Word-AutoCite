@@ -4,6 +4,9 @@
 
 Inserting one citation with Zotero's Word add-in is quick; placing dozens of them across a manuscript from a citation plan is not. This Codex Skill handles that step. It matches the references you have selected to their intended locations, inserts or edits Zotero fields through Zotero's Word integration, and refreshes and verifies the bibliography. The citations remain live and editable in the add-in.
 
+> [!NOTE]
+> **Human-in-the-Loop.** This Skill handles repetitive research tasks; it supports research rather than doing it. Keep questions, judgments, and conclusions with people, and check every result before use.
+
 <img src="assets/overview.png" alt="Your citation plan, your references (Zotero items or PDFs), and your Word manuscript go to an AI agent, which matches references, inserts Zotero fields, refreshes in Word, and verifies the bibliography. The result is a Word document with live, refreshable Zotero citation fields and bibliography; existing citations can be adjusted and refreshed again." width="1600">
 
 Citation plans can be notes, tables (Markdown, CSV, JSON, Excel), or Word comments; references can be Zotero items or PDFs with metadata. Which papers support which statements, and in what order, remains the author's decision: where the plan is incomplete, the workflow reports the gaps rather than filling them. For finding and downloading papers, see [ScholarFetch](https://github.com/LiX-Works/ScholarFetch).

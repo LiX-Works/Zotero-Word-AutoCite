@@ -4,6 +4,9 @@
 
 用 Zotero 的 Word 加载项插入一条引用很快；按引用方案在整篇稿件中放好几十条引用，就费时多了。这个 Codex Skill 负责这一步：将选定文献对应到指定位置，通过 Zotero 的 Word 集成插入或修改字段，并刷新、核验参考文献表。写入的引用仍可在加载项中编辑和刷新。
 
+> [!NOTE]
+> **Human-in-the-Loop.** 这个 Skill 承担重复性的科研事务，是辅助研究，而不是替代研究。问题、判断和结论留给人，每个结果使用前都要检查。
+
 <img src="assets/overview.png" alt="引用方案、文献（Zotero 条目或 PDF）和 Word 稿件交给 AI Agent，依次完成文献匹配、插入 Zotero 字段、在 Word 中刷新、核验参考文献表；结果是带可刷新 Zotero 引用字段和参考文献表的 Word 文档，已有引用可以继续调整并再次刷新。" width="1600">
 
 引用方案可以是笔记、表格（Markdown、CSV、JSON、Excel）或 Word 批注；文献可以是 Zotero 条目，也可以是附元数据的 PDF。哪些文献支撑哪些论述、顺序如何，由作者决定；方案不完整时，工作流报告缺口而不代为补全。文献检索与下载见 [ScholarFetch](https://github.com/LiX-Works/ScholarFetch)。
